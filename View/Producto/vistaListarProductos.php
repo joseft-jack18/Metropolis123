@@ -82,13 +82,45 @@
       </div>
       <div class="modal-body">
         <div class="col-lg-12">
-            <label for="">ID Usuario</label>
-            <input type="text" class="form-control" id="txtid" value="0" disabled>
-        </div><br>
-        <div class="col-lg-12">
-            <label for="">Nombres Completos</label>
-            <input type="text" class="form-control" id="txtnombres" placeholder="Ingrese sus nombres completos">
-        </div><br>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <label for="">Codigo</label>
+                            <input type="text" class="form-control" id="txtid">
+                        </div>
+                        <div class="col-lg-12">
+                            <label for="">Descripcion</label>
+                            <input type="text" class="form-control" id="txtid">
+                        </div>
+                        <div class="col-lg-12">
+                            <label for="">Marca</label>
+                            <input type="text" class="form-control" id="txtid">
+                        </div>
+                        <div class="col-lg-12">
+                            <label for="">Tipo</label>
+                            <input type="text" class="form-control" id="txtid">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <label for="">Imagen</label>
+                    <input type="file" class="form-control" id="txtid">
+
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <label for="">Precio Unitario</label>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                <input type="email" class="form-control" placeholder="Email">
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <label for="">Cantidad</label>
+            <input type="text" class="form-control" id="txtnombres"><br>
+        </div>
       </div>
       <div class="modal-footer">
         <br><button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> Cancelar</button>

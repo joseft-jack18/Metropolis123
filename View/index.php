@@ -80,13 +80,13 @@
                 <!-- User Account: style can be found in dropdown.less -->
                 <li class="dropdown user user-menu">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <img src="../Admin/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                    <img src="../Admin/dist/img/user8-128x128.jpg" class="user-image" alt="User Image">
                     <span class="hidden-xs"><?php echo $_SESSION['S_NOMBRE']; ?></span>
                   </a>
                   <ul class="dropdown-menu">
                     <!-- User image -->
                     <li class="user-header">
-                      <img src="../Admin/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                      <img src="../Admin/dist/img/user8-128x128.jpg" class="img-circle" alt="User Image">
 
                       <p>
                         <?php echo $_SESSION['S_NOMBRE']; ?> - Administrador                        
@@ -114,7 +114,7 @@
             <!-- Sidebar user panel -->
             <div class="user-panel">
               <div class="pull-left image">
-                <img src="../Admin/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                <img src="../Admin/dist/img/user8-128x128.jpg" class="img-circle" alt="User Image">
               </div>
               <div class="pull-left info">
                 <p><?php echo $_SESSION['S_NOMBRE'];?></p>
@@ -139,13 +139,13 @@
                 <a href="#" onclick="cargar_contenido('contenido_principal','Usuario/vistaListarUsuarios.php')">
                   <i class="fa fa-user"></i> <span>Usuarios</span>
                 </a>
-              </li>
+              </li>              
+              <li class="header">VENTAS</li>
               <li class="active treeview">
                 <a href="#">
-                  <i class="fa fa-users"></i> <span>Clientes</span>
+                  <i class="fa fa-commenting-o"></i> <span>Comentarios</span>
                 </a>
               </li>
-              <li class="header">VENTAS</li>
               <li class="active treeview">
                 <a href="#">
                   <i class="fa fa-money"></i> <span>Pedidos</span>
