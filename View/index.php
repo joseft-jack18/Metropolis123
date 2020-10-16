@@ -142,7 +142,7 @@
               </li>              
               <li class="header">VENTAS</li>
               <li class="active treeview">
-                <a href="#">
+                <a href="#" onclick="cargar_contenido('contenido_principal','Comentario/vistaListarComentarios.php')">
                   <i class="fa fa-commenting-o"></i> <span>Comentarios</span>
                 </a>
               </li>

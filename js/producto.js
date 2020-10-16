@@ -1,7 +1,7 @@
 var table = "";
 
 function ListarProductos(){
-    table = $("#tabla_productos").DataTable({
+    table = $("#tabla_productos").DataTable({        
         "ordering": false,
         "paging": false,
         "searching": { "regex": true },
@@ -76,42 +76,40 @@ function AbrirModalRegistro(){
     $('#modal_registro').modal('show');
 }
 
-//falta editar desde aqui------------------------------------------------------------------
-function RegistrarUsuario(){
-    var nom = $('#txtnombres').val();
-    var dir = $('#txtdireccion').val();
-    var email = $('#txtemail').val();
-    var pass = $('#txtpass').val();
-    var rpass = $('#txtrpass').val();
+function RegistrarProducto(){
+    var formData = new FormData($("#agregar_producto")[0]);
 
-    if(nom.length == 0 || dir.length == 0 || email.length == 0 || pass.length == 0 || rpass.length == 0){
+    var cod = $('#txtcodigo').val();
+    var des = $('#txtdescripcion').val();
+    var mar = $('#txtmarca').val();
+    var tip = $('#txttipo').val();
+    var pre = $('#txtprecio').val();
+    var can = $('#txtcantidad').val();
+    var fot = $('#txtimg').val();
+
+    if(cod.length == 0 || des.length == 0 || mar.length == 0 || tip.length == 0 || pre.length == 0 || can.length == 0 || fot.length == 0){
         return Swal.fire("Mensaje de Advertencia", "Debe de llenar los campos vacios", "warning")
-    } 
-
-    if(pass != rpass){
-        return Swal.fire("Mensaje de Advertencia", "Las contraseñas deben coincidir...", "warning")
     }
 
     $.ajax({
-        url: '../Controller/Usuario/RegistrarUsuario.php',
+        url: '../Controller/Producto/RegistrarProducto.php',
         type: 'POST',
-        data: {
-            nombres: nom,
-            direccion: dir,
-            email: email,
-            contra: pass
-        }
+        data: formData,
+		cache: false,
+		processData: false,
+		contentType: false
     }).done(function(resp) {
+        //alert(resp);
         if(resp > 0){
             if(resp == 1){
                 $('#modal_registro').modal('hide');
-                Swal.fire("Mensaje de Confirmacion", "Datos almacenados correctamente!", "success")
+                Swal.fire("Mensaje de Confirmacion", "Producto guardado correctamente!", "success")
                 .then( ( value ) => {
                     LimpiarRegistro();
                     table.ajax.reload();
                 });
             } else {
-                return Swal.fire("Mensaje de Advertencia", "Lo sentimos, el usuario ya se encuentra registrado.", "warning");
+                return Swal.fire("Mensaje de Advertencia", "Lo sentimos, el producto ya se encuentra registrado.", "warning");
             }
         } else {
             Swal.fire("Mensaje de Error", "Lo sentimos, no se pudo guardar los datos.", "error");
@@ -120,22 +118,25 @@ function RegistrarUsuario(){
 }
 
 function LimpiarRegistro(){
-    $('#txtnombres').val("");
-    $('#txtdireccion').val("");
-    $('#txtemail').val("");
-    $('#txtpass').val("");
-    $('#txtrpass').val("");
+    $('#txtcodigo').val("");
+    $('#txtdescripcion').val("");
+    $('#txtmarca').val("");
+    $('#txttipo').val("");
+    $('#txtprecio').val("");
+    $('#txtcantidad').val("");
+    $('#txtimg').val("");
+    $('#imgproducto').attr("src","../Admin/dist/img/box.png");
 }
 
-$('#tabla_usuarios').on('click', '.desactivar', function() {
+$('#tabla_productos').on('click', '.desactivar', function() {
     var data = table.row($(this).parents('tr')).data();
     if(table.row(this).child.isShown()){
         var data = table.row(this).data();
     }
     //alert(data.idUsu);
     Swal.fire({
-        title: 'Esta seguro en deshabilitar al usuario?',
-        text: "Una vez hecho esto, el usuario no tendra acceso al sistema!",
+        title: 'Esta seguro en deshabilitar al producto?',
+        text: "Una vez hecho esto, el producto ya no estara disponible para el cliente!",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -148,20 +149,20 @@ $('#tabla_usuarios').on('click', '.desactivar', function() {
             'Your file has been deleted.',
             'success'
           )*/
-          ModificarEstadoUsuario(data.idUsu, 'I');
+          ModificarEstadoProducto(data.codigo, 'A');
         }
       })
 });
 
-$('#tabla_usuarios').on('click', '.activar', function() {
+$('#tabla_productos').on('click', '.activar', function() {
     var data = table.row($(this).parents('tr')).data();
     if(table.row(this).child.isShown()){
         var data = table.row(this).data();
     }
     //alert(data.idUsu);
     Swal.fire({
-        title: 'Esta seguro en habilitar al usuario?',
-        text: "Una vez hecho esto, el usuario tendra acceso al sistema!",
+        title: 'Esta seguro en habilitar al producto?',
+        text: "Una vez hecho esto, el producto estará disponible para el cliente!",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -174,30 +175,30 @@ $('#tabla_usuarios').on('click', '.activar', function() {
             'Your file has been deleted.',
             'success'
           )*/
-          ModificarEstadoUsuario(data.idUsu, 'A');
+          ModificarEstadoProducto(data.codigo, 'D');
         }
       })
 });
 
-function ModificarEstadoUsuario(id,estado){
+function ModificarEstadoProducto(id,estado){
     var mensaje = "";
 
     if(estado == 'A'){
-        mensaje = "habilitó";
+        mensaje = "inhabilitó";
     } else {
-        mensaje = "deshabilitó";
+        mensaje = "habilitó";
     }
 
     $.ajax({
-        url: '../Controller/Usuario/ModificarEstadoUsuario.php',
+        url: '../Controller/Producto/ModificarEstadoProducto.php',
         type: 'POST',
         data: {
-            id: id,
+            codigo: id,
             estado: estado
         }
     }).done(function(resp) {
         if(resp > 0){
-            Swal.fire("Mensaje de Confirmacion", "El usuario se " + mensaje + " con exito!", "success")
+            Swal.fire("Mensaje de Confirmacion", "El producto se " + mensaje + " con exito!", "success")
                 .then( ( value ) => {
                     table.ajax.reload();
                 });
@@ -205,7 +206,8 @@ function ModificarEstadoUsuario(id,estado){
     });
 }
 
-$('#tabla_usuarios').on('click', '.editar', function() {
+$('#tabla_productos').on('click', '.editar', function() {
+    var tip = "";
     var data = table.row($(this).parents('tr')).data();
     if(table.row(this).child.isShown()){
         var data = table.row(this).data();
@@ -214,28 +216,41 @@ $('#tabla_usuarios').on('click', '.editar', function() {
     $('#modal_editar').modal({backdrop:'static', keyboard:false})
     $('#modal_editar').modal('show');    
 
-    $('#txteid').val(data.idUsu);
-    $('#txtenombres').val(data.nomUsu);
-    $('#txtedireccion').val(data.dirUsu);
-    $('#txteemail').val(data.emailUsu);
+    if(data.tipo == 'A'){
+        tip = "Accesorios";
+    }
+    if(data.tipo == 'C'){
+        tip = "Cables de Luz";
+    }
+    if(data.tipo == 'L'){
+        tip = "Luces y Flourescentes";
+    }
+
+    $('#txtecodigo').val(data.codigo);
+    $('#txtedescripcion').val(data.descripcion);
+    $('#txtemarca').val(data.marca);
+    $('#txtetipo').val(tip);
+    $('#txtecantidad').val(data.cantidad);
+    $('#txteprecio').val(data.precioUnitario);
+    $('#imgeproducto').attr("src","../ImgProductos/"+data.imagen);
 });
 
-function ModificarUsuario(){
-    var id = $('#txteid').val();
-    var dir = $('#txtedireccion').val();
-    var email = $('#txteemail').val();
+function ModificarProducto(){
+    var cod = $('#txtecodigo').val();
+    var can = $('#txtecantidad').val();
+    var pre = $('#txteprecio').val();
 
-    if(dir.length == 0 || email.length == 0){
+    if(can.length == 0 || pre.length == 0){
         return Swal.fire("Mensaje de Advertencia", "Debe de llenar los campos vacios", "warning")
     }
 
     $.ajax({
-        url: '../Controller/Usuario/ModificarUsuario.php',
+        url: '../Controller/Producto/ModificarProducto.php',
         type: 'POST',
         data: {
-            id: id,
-            direccion: dir,
-            email: email
+            codigo: cod,
+            cantidad: can,
+            precio: pre
         }
     }).done(function(resp) {
         if(resp > 0){
@@ -249,3 +264,26 @@ function ModificarUsuario(){
         }
     });
 }
+
+//------------------------- visualizar la imagen en el img al agregar -----------------------
+$('#txtimg').change(function(e) {
+    addImage(e); 
+});
+
+function addImage(e){
+    var file = e.target.files[0],
+    imageType = /image.*/;
+
+    if (!file.type.match(imageType))
+    return;
+
+    var reader = new FileReader();
+    reader.onload = fileOnload;
+    reader.readAsDataURL(file);
+}
+
+function fileOnload(e) {
+    var result=e.target.result;
+    $('#imgproducto').attr("src",result);
+}
+//------------------------- visualizar la imagen en el img al agregar -----------------------

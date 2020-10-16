@@ -79,53 +79,62 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h3 class="modal-title">Registro de Productos</h3>        
-      </div>
-      <div class="modal-body">
-        <div class="col-lg-12">
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <label for="">Codigo</label>
-                            <input type="text" class="form-control" id="txtid">
-                        </div>
-                        <div class="col-lg-12">
-                            <label for="">Descripcion</label>
-                            <input type="text" class="form-control" id="txtid">
-                        </div>
-                        <div class="col-lg-12">
-                            <label for="">Marca</label>
-                            <input type="text" class="form-control" id="txtid">
-                        </div>
-                        <div class="col-lg-12">
-                            <label for="">Tipo</label>
-                            <input type="text" class="form-control" id="txtid">
+      </div>      
+        <div class="modal-body">
+          <form id="agregar_producto">
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <label for="">Codigo</label>
+                                <input type="text" class="form-control" id="txtcodigo" name="txtcodigo"><br>
+                            </div><br>
+                            <div class="col-lg-12">
+                                <label for="">Descripcion</label>
+                                <input type="text" class="form-control" id="txtdescripcion" name="txtdescripcion" placeholder="Ingrese la descripcion"><br>
+                            </div><br>
+                            <div class="col-lg-12">
+                                <label for="">Marca</label>
+                                <input type="text" class="form-control" id="txtmarca" name="txtmarca" placeholder="Ingrese la marca"><br>
+                            </div><br>
+                            <div class="col-lg-12">
+                                <label for="">Tipo</label>
+                                <select id="txttipo" name="txttipo" class="form-control">
+                                    <option value="A">Accesorios</option>
+                                    <option value="C">Cables de Luz</option>
+                                    <option value="L">Luces y Flourescentes</option>
+                                </select><br>
+                            </div><br>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-6">
-                    <label for="">Imagen</label>
-                    <input type="file" class="form-control" id="txtid">
-
+                    <div class="col-lg-6">
+                        <label for="">Imagen</label>
+                        <input type="file" class="form-control" id="txtimg" name="txtimg" accept="image/*"><br>
+                        <img src="../Admin/dist/img/box.png" width="255" id="imgproducto">
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-lg-6">
-            <label for="">Precio Unitario</label>
-            <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                <input type="email" class="form-control" placeholder="Email">
+            <div class="col-lg-6">
+                <label for="">Precio Unitario</label>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                    <input type="number" class="form-control" id="txtprecio" name="txtprecio" placeholder="0.00">
+                </div>
             </div>
+            <div class="col-lg-6">
+                <label for="">Cantidad</label>
+                <input type="number" class="form-control" id="txtcantidad" name="txtcantidad" placeholder="0"><br>
+            </div>
+            <div class="col-lg-12">
+                <input name="boton" type="hidden" value="guardar">
+            </div>
+          </form>
         </div>
-        <div class="col-lg-6">
-            <label for="">Cantidad</label>
-            <input type="text" class="form-control" id="txtnombres"><br>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <br><button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> Cancelar</button>
-        <button type="button" class="btn btn-success" onclick="RegistrarProducto()"><i class="fa fa-check-square-o"></i> Guardar</button>
-      </div><br>
+        <div class="modal-footer">
+            <br><button type="button" class="btn btn-danger" data-dismiss="modal" onclick="LimpiarRegistro()"><i class="fa fa-times"></i> Cancelar</button>
+            <button type="button" class="btn btn-success" onclick="RegistrarProducto()"><i class="fa fa-check-square-o"></i> Guardar</button>
+        </div><br>      
     </div>
   </div>
 </div>
@@ -140,23 +149,48 @@
         <h3 class="modal-title">Editar Usuario</h3>        
       </div>
       <div class="modal-body">
-        <div class="col-lg-12">
-            <input type="hidden" class="form-control" id="txteid">
-            <label for="">Nombres Completos</label>
-            <input type="text" class="form-control" id="txtenombres" disabled>
-        </div><br>
-        <div class="col-lg-12">
-            <label for="">Correo Electronico</label>
-            <input type="email" class="form-control" id="txteemail">
-        </div><br>
-        <div class="col-lg-12">
-            <label for="">Direccion</label>
-            <input type="text" class="form-control" id="txtedireccion"><br>        
-        </div>
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <input type="hidden" class="form-control" id="txtecodigo"><br>
+                            </div><br>
+                            <div class="col-lg-12">
+                                <label for="">Descripcion</label>
+                                <input type="text" class="form-control" id="txtedescripcion" disabled><br>
+                            </div><br>
+                            <div class="col-lg-12">
+                                <label for="">Marca</label>
+                                <input type="text" class="form-control" id="txtemarca" disabled><br>
+                            </div><br>
+                            <div class="col-lg-12">
+                                <label for="">Tipo</label>
+                                <input type="text" class="form-control" id="txtetipo" disabled><br>
+                            </div><br>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <label for="">Imagen</label>
+                        <img src="../Admin/dist/img/box.png" width="255" id="imgeproducto">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <label for="">Precio Unitario</label>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                    <input type="number" class="form-control" id="txteprecio">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <label for="">Cantidad</label>
+                <input type="number" class="form-control" id="txtecantidad"><br>
+            </div>
       </div>
       <div class="modal-footer">
         <br><button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> Cancelar</button>
-        <button type="button" class="btn btn-success" onclick="ModificarUsuario()"><i class="fa fa-check-square-o"></i> Editar</button>
+        <button type="button" class="btn btn-success" onclick="ModificarProducto()"><i class="fa fa-check-square-o"></i> Editar</button>
       </div><br>
     </div>
   </div>

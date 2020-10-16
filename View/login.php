@@ -49,7 +49,7 @@
         <div class="login-box-body">
             <br>
             <div class="login-logo">
-                <b>Admin</b>LTE
+                <img src="../Admin/dist/img/logo_tienda.png" width="280">
             </div>
             <br>
             <!-- <form name="formLogin" id="formLogin"> -->
